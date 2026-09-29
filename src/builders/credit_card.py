@@ -49,6 +49,11 @@ class CreditCardBuilder:
             self._transaction.reference = reference
         return self
 
+    def payment_method(self, token: str, installments: int = 1) -> 'CreditCardBuilder':
+        data = { 'type': 'CARD', 'token': token, 'installments': installments }
+        self._transaction.payment_method = data
+        return self
+
     def redirect_url(self, url: str) -> 'CreditCardBuilder':
         self._transaction.redirect_url = url
         return self

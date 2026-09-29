@@ -1,5 +1,4 @@
 import os
-import json
 import requests
 from abc import ABC, abstractmethod
 
@@ -40,5 +39,4 @@ class Transaction:
             'reference': self.reference,
             'payment_method': self.payment_method
         }
-        response = requests.post(f'{os.getenv('BASE_URL')}/transactions', headers={'Authorization': f'Bearer {os.getenv('PRIVATE_KEY')}'}, data=json.dumps(data))
-        return response.json()
+        return data

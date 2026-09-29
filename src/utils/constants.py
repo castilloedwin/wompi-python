@@ -1,0 +1,6 @@
+CREATE_LOGS_TABLE = '''
+    CREATE TABLE IF NOT EXISTS logs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        public_key TEXT UNIQUE
+    )
+'''
