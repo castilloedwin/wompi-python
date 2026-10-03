@@ -1,4 +1,5 @@
 import os
+import json
 import requests
 from abc import ABC, abstractmethod
 
@@ -26,7 +27,9 @@ class Transaction:
         self.signature = None
         self.customer_email = None
         self.reference = None
+        self.redirect_url = None
         self.payment_method = {}
+        self.ip = None
 
     def create(self):
         data = {
@@ -37,6 +40,9 @@ class Transaction:
             'signature': self.signature,
             'customer_email': self.customer_email,
             'reference': self.reference,
-            'payment_method': self.payment_method
+            'redirect_url': self.redirect_url,
+            'payment_method': self.payment_method,
+            'ip': self.ip
         }
-        return data
+        response = requests.post(f'{os.getenv('BASE_URL')}/transactions', headers={'Authorization': f'Bearer {os.getenv('PRIVATE_KEY')}'}, data=json.dumps(data))
+        return response.json()

@@ -7,12 +7,14 @@ class CreditCard(Transaction):
     def __init__(self):
         super().__init__()
         self.payment_method_type = 'CARD'
-        self.ip = None
-        self.redirect_url = None
 
-    def create(self):
-        data = super().create()
-        data['redirect_url'] = self.redirect_url
+class Bancolombia(Transaction):
+    def __init__(self):
+        super().__init__()
+        self.payment_method_type = 'BANCOLOMBIA_TRANSFER'
+        self.payment_method_user_type = 'PERSON'
 
-        response = requests.post(f'{os.getenv('BASE_URL')}/transactions', headers={'Authorization': f'Bearer {os.getenv('PRIVATE_KEY')}'}, data=json.dumps(data))
-        return response.json()
+class BancolombiaQr(Transaction):
+    def __init__(self):
+        super().__init__()
+        self.payment_method_type = 'BANCOLOMBIA_QR'
