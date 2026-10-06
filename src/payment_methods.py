@@ -18,3 +18,9 @@ class BancolombiaQr(Transaction):
     def __init__(self):
         super().__init__()
         self.payment_method_type = 'BANCOLOMBIA_QR'
+
+class DaviPlata(Transaction):
+    def __init__(self):
+        super().__init__()
+        self.payment_method_type = 'DAVIPLATA'
+        self.payment_method_document_type = 'CC'
