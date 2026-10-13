@@ -2,8 +2,6 @@
 
 A small Python toolkit for integrating with the [Wompi](https://wompi.com) payment gateway (Colombia). It uses a **fluent builder pattern** to assemble transactions, validate them locally, sign them, and send them to the Wompi API.
 
-> **Status:** experimental. This is a learning/experiment project, not a published package. See [Known limitations](#known-limitations) before using it in production.
-
 ## Table of contents
 
 - [Features](#features)
@@ -19,7 +17,6 @@ A small Python toolkit for integrating with the [Wompi](https://wompi.com) payme
 - [Project structure](#project-structure)
 - [Running the examples](#running-the-examples)
 - [Testing](#testing)
-- [Known limitations](#known-limitations)
 - [License](#license)
 
 ## Features
@@ -444,21 +441,6 @@ pytest
 ```
 
 The tests live in `src/tests/` and cover each builder: field assignment, signature computation, default values, and validation errors. The `GET /merchants/info` call is patched with a fake response, so the suite runs **offline** and needs no real credentials.
-
-## Known limitations
-
-This is an experiment, and a few rough edges are worth knowing about:
-
-- **No webhook support.** `EVENTS_KEY` is defined in `.env.example` but nothing verifies Wompi event signatures yet.
-- **Builder order matters.** `signature()` must be called after `amount_in_cents()` / `currency()` / `reference()`.
-- **Errors are not uniformly handled.** `Transaction.create()` and the lookup helpers return the parsed JSON without calling `raise_for_status()`. Their `except requests.exceptions.HTTPError` branches never trigger and would return the exception object rather than raise it. Check the response body for Wompi's error details.
-- **`CreditCardBuilder.build()` assumes `payment_method()` was called.** Otherwise, the empty payment method dict raises a `KeyError` instead of a friendly `ValueError`. The same applies to the other builders.
-- **Tokenization key cache has no expiry or refresh.** If Wompi rotates the key, delete the row in the `logs` table (or the `.db` file). If a SQLite error occurs, `get_public_key()` prints it and returns `None`.
-- **A debug `print(public_key)`** runs the first time the key is fetched in `encrypt.py`.
-- **Network calls have no timeouts or retries.**
-- **`AcceptanceTokens` is fetched on every builder instantiation**, so each builder makes one extra HTTP request.
-- **Raw card data passes through your Python process.** Only use the card flow where that fits your PCI-DSS obligations, and never log card data.
-- **`app.py` is a stub**, and there is no `requirements.txt` / `pyproject.toml` yet.
 
 ## License
 

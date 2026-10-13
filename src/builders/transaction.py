@@ -28,6 +28,19 @@ class TransactionBuilder:
         self._transaction.currency = currency_code
         return self
 
+    def customer_email(self, email: str) -> 'TransactionBuilder':
+        self._transaction.customer_email = email
+        return self
+
+    def reference(self, reference: str = '') -> 'TransactionBuilder':
+        if not reference:
+            characters = string.ascii_letters + string.digits
+            length = 15
+            self._transaction.reference = ''.join(random.choices(characters, k=length))
+        else:
+            self._transaction.reference = reference
+        return self
+
     def signature(self) -> 'TransactionBuilder':
         if not self._transaction.reference:
             self.reference()
@@ -41,19 +54,6 @@ class TransactionBuilder:
         hashed_signature = hashlib.sha256()
         hashed_signature.update(signature.encode('utf-8'))
         self._transaction.signature = hashed_signature.hexdigest()
-        return self
-
-    def customer_email(self, email: str) -> 'TransactionBuilder':
-        self._transaction.customer_email = email
-        return self
-
-    def reference(self, reference: str = '') -> 'TransactionBuilder':
-        if not reference:
-            characters = string.ascii_letters + string.digits
-            length = 15
-            self._transaction.reference = ''.join(random.choices(characters, k=length))
-        else:
-            self._transaction.reference = reference
         return self
 
     def redirect_url(self, url: str) -> 'TransactionBuilder':
