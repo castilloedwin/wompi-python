@@ -1,4 +1,4 @@
-# wompi-python
+# Wompi Python API library
 
 A small Python toolkit for integrating with the [Wompi](https://wompi.com) payment gateway (Colombia). It uses a **fluent builder pattern** to assemble transactions, validate them locally, sign them, and send them to the Wompi API.
 
