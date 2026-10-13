@@ -17,7 +17,6 @@ A small Python toolkit for integrating with the [Wompi](https://wompi.com) payme
 - [Project structure](#project-structure)
 - [Running the examples](#running-the-examples)
 - [Testing](#testing)
-- [License](#license)
 
 ## Features
 
@@ -441,7 +440,3 @@ pytest
 ```
 
 The tests live in `src/tests/` and cover each builder: field assignment, signature computation, default values, and validation errors. The `GET /merchants/info` call is patched with a fake response, so the suite runs **offline** and needs no real credentials.
-
-## License
-
-Distributed under the Apache License 2.0. See [`LICENSE`](LICENSE) for details. Remember to fill in the copyright placeholder (`[yyyy] [name of copyright owner]`) if you intend to publish the project.
