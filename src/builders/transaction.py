@@ -29,9 +29,17 @@ class TransactionBuilder:
         return self
 
     def signature(self) -> 'TransactionBuilder':
-        signature = f'{self._transaction.reference}{self._transaction.amount_in_cents}{self._transaction.currency}{os.getenv('INTEGRITY_KEY')}'
+        if not self._transaction.reference:
+            self.reference()
+
+        signature = (
+            f'{self._transaction.reference}'
+            f'{self._transaction.amount_in_cents}'
+            f'{self._transaction.currency}'
+            f'{os.getenv('INTEGRITY_KEY')}'
+        )
         hashed_signature = hashlib.sha256()
-        hashed_signature.update(bytes(signature.encode('utf-8')))
+        hashed_signature.update(signature.encode('utf-8'))
         self._transaction.signature = hashed_signature.hexdigest()
         return self
 

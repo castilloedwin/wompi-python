@@ -29,3 +29,8 @@ class Nequi(Transaction):
     def __init__(self):
         super().__init__()
         self.payment_method_type = 'NEQUI'
+
+class Pse(Transaction):
+    def __init__(self):
+        super().__init__()
+        self.payment_method_type = 'PSE'

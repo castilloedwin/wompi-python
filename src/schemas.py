@@ -10,7 +10,10 @@ class MerchantInfo(ABC):
 
 class AcceptanceTokens(MerchantInfo):
     def __init__(self):
-        self._response = requests.get(f'{os.getenv('BASE_URL')}/merchants/info', headers={'x-merchant-public-key': os.getenv('PUBLIC_KEY')}).json()
+        self._response = requests.get(
+            f"{os.getenv('BASE_URL')}/merchants/info",
+            headers={"x-merchant-public-key": os.getenv("PUBLIC_KEY")},
+        ).json()
 
     def presigned_data(self, key: str) -> dict:
         try:
@@ -44,5 +47,9 @@ class Transaction:
             'payment_method': self.payment_method,
             'ip': self.ip
         }
-        response = requests.post(f'{os.getenv('BASE_URL')}/transactions', headers={'Authorization': f'Bearer {os.getenv('PRIVATE_KEY')}'}, data=json.dumps(data))
+        response = requests.post(
+            f"{os.getenv('BASE_URL')}/transactions",
+            headers={"Authorization": f"Bearer {os.getenv('PRIVATE_KEY')}"},
+            data=json.dumps(data),
+        )
         return response.json()
