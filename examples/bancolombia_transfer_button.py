@@ -2,7 +2,6 @@
 
 from dotenv import load_dotenv
 from src.builders.bancolombia import BancolombiaBuilder
-from src.utils.transaction import get_transaction
 
 load_dotenv()
 
