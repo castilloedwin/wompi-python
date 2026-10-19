@@ -1,13 +1,9 @@
 # python -m examples.card
-
-from dotenv import load_dotenv
 from src.utils.encrypt import encrypt, tokenize
-from src.builders.credit_card import CreditCardBuilder
-
-load_dotenv()
+from src.factory import TransactionFactory
 
 def main():
-    credit_card = CreditCardBuilder()
+    credit_card = TransactionFactory.create('credit_card')
     user_card = {
         'number': '4242424242424242',
         'cvc': '123',
